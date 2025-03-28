@@ -5,6 +5,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 .parcel-cache
+.ruff-cache/
 
 # C extensions
 *.so
