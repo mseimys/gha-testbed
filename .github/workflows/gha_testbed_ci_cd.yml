@@ -44,7 +44,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          tags: $IMAGE_TAG
+          tags: ${{ env.IMAGE_TAG }}
           push: false
           load: true # makes image available locally (important!)
           cache-from: type=local,src=/tmp/.buildx-cache
