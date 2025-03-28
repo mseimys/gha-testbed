@@ -1,0 +1,39 @@
+[project]
+name = "gha-testbed"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Matas Seimys",email = "matas.seimys@gmail.com"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+
+[tool.poe]
+env = { PYTHONPATH = "." }
+
+[tool.poe.tasks]
+test = "pytest -v"
+
+[tool.poe.tasks.run]
+use_exec = true  # or we get stuck inside asyncio loop
+cmd = "uvicorn main:app --host 0.0.0.0 --port 5000 --reload"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = ">=3.11"
+uvicorn = "^0.34.0"
+fastapi = "^0.115.12"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+poethepoet = "^0.33.0"
+
+[tool.ruff]
+line-length = 130
+indent-width = 4
