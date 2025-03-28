@@ -15,6 +15,9 @@ jobs:
       contents: read
       packages: write
 
+    env:
+      IMAGE_TAG: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.sha }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -37,11 +40,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
 
-      - name: Build and push Docker image
+      - name: Build Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
+          tags: ${IMAGE_TAG}
           push: false
-          tags: ghcr.io/${{ github.repository }}:latest
+          load: true # makes image available locally (important!)
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
+
+      - name: Run tests inside container
+        run: |
+          docker run --rm $IMAGE_TAG poe test
