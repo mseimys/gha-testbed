@@ -15,7 +15,8 @@ env = { PYTHONPATH = "." }
 test = "pytest -v"
 format = "ruff format --check --diff"
 lint = "ruff check --preview"
-check-ci = ["format", "lint"]
+mypy = "mypy --show-error-codes --show-column-numbers --no-pretty ."
+check-ci = ["format", "lint", "mypy"]
 
 [tool.poe.tasks.run]
 use_exec = true  # or we get stuck inside asyncio loop
@@ -38,7 +39,15 @@ pytest = "^8.3.4"
 poethepoet = "^0.33.0"
 httpx = "^0.28.1"
 ruff = "^0.11.2"
+mypy = "^1.15.0"
 
 [tool.ruff]
 line-length = 130
 indent-width = 4
+
+[tool.mypy]
+disallow_untyped_defs = true
+
+exclude = [
+    "^tests/"
+]
