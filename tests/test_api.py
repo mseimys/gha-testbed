@@ -14,3 +14,7 @@ def test_index():
 def test_non_existing():
     response = client.get("/not-found")
     assert response.status_code == 404
+
+
+def test_test2():
+    assert True
