@@ -2,6 +2,7 @@ FROM python:3.13-slim
 
 ENV POETRY_VERSION=1.8.2 \
     POETRY_VIRTUALENVS_CREATE=false \
+    POETRY_NO_INTERACTION=1 \
     PATH="/root/.local/bin:$PATH"
 
 # Set the working directory in the container
